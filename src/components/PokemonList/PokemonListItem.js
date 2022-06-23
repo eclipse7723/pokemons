@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from "react";
-import { Card, Placeholder, Table, ListGroup, ListGroupItem } from "react-bootstrap";
+import { Card, Placeholder, ListGroup, ListGroupItem } from "react-bootstrap";
 
 
 export default function PokemonListItem({name, url}) {
@@ -16,10 +16,10 @@ export default function PokemonListItem({name, url}) {
         fetch(url, {signal: signal})
         .then(response => response.json())
         .then(res => {
-            setLoading(false)
             let pictureUrl = res.sprites.other.dream_world.front_default
             setIconPictureUrl(pictureUrl)
             setData(res)
+            setLoading(false)
         })
 
         return () => controller.abort()
@@ -43,8 +43,8 @@ export default function PokemonListItem({name, url}) {
 
     return (
 
-        <Card style={{ width: '18rem' }}>
-            <Card.Img variant="top" src={iconPictureUrl} style={{ width: '200px', height: '200px'}}/>
+        <Card style={{ width: '18rem', alignItems: 'center'}}>
+            <Card.Img variant="top" src={iconPictureUrl} style={{ width: '200px', height: '200px', marginTop: '10px'}}/>
             <Card.Body>
                 <Card.Title>{name}</Card.Title>
 
