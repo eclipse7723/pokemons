@@ -1,25 +1,31 @@
-import React, {useState, useEffect, useRef} from "react"
+import React, {useState, useEffect} from "react"
 import LoadingSpinner from "../LoadingSpinner";
 import PokemonListItem from "./PokemonListItem"
-import Pagination, {formatPokemonsUrl} from "../Pagination";
+import Pagination from "../Pagination";
 import { Row } from "react-bootstrap";
 
 
+export function formatPokemonsUrl(params, pageNum) {
+  if (isNaN(pageNum)) pageNum = 1;
+  let offset = (pageNum-1) * params.itemsPerPage
+  let url = `${params.baseUrl}?offset=${offset}&limit=${params.itemsPerPage}`
+  return url
+}
+
 export default function PokemonList() {
+    // list of jsons with pokemon name and url to its details:
     const [pokemons, setPokemons] = useState([])
 
     // pagination
     const [paginationParams, setPaginationParams] = useState({
-      cardsPerPage: 20, curPageNumber: 1, baseUrl: 'https://pokeapi.co/api/v2/pokemon'
+      itemsPerPage: 20, curPageNumber: 1, baseUrl: 'https://pokeapi.co/api/v2/pokemon'
     })
     const [curPageUrl, setCurPageUrl] = useState(formatPokemonsUrl(paginationParams))
     
     function setMaxPageNumber(totalSize) {
-      if (paginationParams.maxPageNumber === undefined) {
-        paginationParams.maxPageNumber = Math.ceil(totalSize / paginationParams.cardsPerPage)
-      }
+      if (paginationParams.maxPageNumber === undefined)
+        paginationParams.maxPageNumber = Math.ceil(totalSize / paginationParams.itemsPerPage)
     }
-
 
     // loading
     const [loading, setLoading] = useState(true)
@@ -38,17 +44,14 @@ export default function PokemonList() {
   
         return () => controller.abort()
     }, [curPageUrl])
-  
-    if (loading) return (<><LoadingSpinner/></>);
     
+    if (loading) return (<LoadingSpinner/>);
+
     return (<>
-    <div className="container-md ">
-    <Pagination setCurPageUrl={setCurPageUrl} params={paginationParams} />
-    
-    <Row className="g-4 justify-content-between" style={{marginRight: 0}}>
-        { pokemons.map(p => 
-        <PokemonListItem key={p.name} name={p.name} url={p.url}/>) }
-    </Row>
-    </div>
+      <Pagination setCurPageUrl={setCurPageUrl} params={paginationParams} formatUrl={formatPokemonsUrl} />
+      <Row className="g-4 justify-content-between" style={{marginRight: 0}}>
+          { pokemons.map(p => 
+            <PokemonListItem key={p.name} name={p.name} url={p.url}/>) }
+      </Row>
     </>)
 }

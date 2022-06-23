@@ -2,49 +2,57 @@ import { Pagination as BPagination } from 'react-bootstrap'
 import {useState} from 'react'
 
 
-export function formatPokemonsUrl(params, pageNum) {
-    if (isNaN(pageNum)) pageNum = 1;
-    let offset = (pageNum-1) * params.cardsPerPage
-    let url = `${params.baseUrl}?offset=${offset}&limit=${params.cardsPerPage}`
-    return url
-}
+export default function Pagination({setCurPageUrl, params, formatUrl}) {
+    /* {params} should be an Object with these properties: maxPageNumber, curPageNumber */
 
-
-export default function Pagination({setCurPageUrl, params}) {
-    // const paginationParams = getPaginationParams()
     const [maxPageNumber, setMaxPageNumber] = useState(params.maxPageNumber)
 
     function changePage(pageNum) {
-        let url = formatPokemonsUrl(params, pageNum)
-        console.log(url)
+        let url = formatUrl(params, pageNum)
+        console.log(url)    // debug
         setCurPageUrl(url)
         params.curPageNumber = pageNum
     }
 
     function gotoNextPage() {
-        let nexPageNum = Math.min(params.curPageNumber+1, maxPageNumber)
-        changePage(nexPageNum)
+        if (params.curPageNumber == maxPageNumber) return;
+        changePage(params.curPageNumber+1)
     }
 
     function gotoPrevPage() {
-        let nexPageNum = Math.max(params.curPageNumber-1, 1)
-        changePage(nexPageNum)
+        if (params.curPageNumber == 1) return;
+        changePage(params.curPageNumber-1)
     }
 
-    return (<>
-    <BPagination>
-        {params.curPageNumber !== 1 && <BPagination.Item onClick={() => changePage(1)}>{1}</BPagination.Item>}
-        {params.curPageNumber == (maxPageNumber) && <BPagination.Ellipsis/>}
-        
-        {params.curPageNumber > 2 && <BPagination.Prev onClick={gotoPrevPage}/>}
-        
-        <BPagination.Item active>{params.curPageNumber}</BPagination.Item>
+    if (maxPageNumber <= 5) {
+        // [1] [2] [3] [4] [5]
+        return (<>
+            <BPagination>
+                {[...Array(maxPageNumber).keys()].map(i => {
+                    i += 1
+                    if (params.curPageNumber === i)
+                        return <BPagination.Item active>{i}</BPagination.Item>;
+                    else
+                        return <BPagination.Item onClick={() => changePage(i)}>{i}</BPagination.Item>;
+                })}
+            </BPagination>
+        </>)
+    } else {
+        // [1] [<] [CUR] [>] [10]
+        return (<>
+            <BPagination>
+                <BPagination.Item disabled={params.curPageNumber == 1} onClick={() => changePage(1)}>{1}</BPagination.Item>
 
-        {params.curPageNumber < (maxPageNumber-1) && <BPagination.Next onClick={gotoNextPage}/>}
+                {/* <BPagination.Item disabled>/</BPagination.Item> */}
+                <BPagination.Prev disabled={params.curPageNumber == 1} onClick={gotoPrevPage}/>
+                
+                <BPagination.Item active>{params.curPageNumber}</BPagination.Item>
         
-        {params.curPageNumber <= 2 && <BPagination.Ellipsis/>}
-        {params.curPageNumber !== maxPageNumber &&
-            <BPagination.Item onClick={() => changePage(maxPageNumber)}>{maxPageNumber}</BPagination.Item>}
-    </BPagination>
-    </>)
+                <BPagination.Next disabled={params.curPageNumber == maxPageNumber} onClick={gotoNextPage}/>
+                {/* <BPagination.Item disabled>/</BPagination.Item> */}
+
+                <BPagination.Item disabled={params.curPageNumber == maxPageNumber} onClick={() => changePage(maxPageNumber)}>{maxPageNumber}</BPagination.Item>
+            </BPagination>
+        </>)
+    }
 }
