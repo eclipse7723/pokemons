@@ -1,11 +1,10 @@
-import React, {useState, useEffect} from "react";
 import Header from "./components/Header";
-import PokemonList from "./components/PokemonList/PokemonList"
+import PokemonsPage from "./pages/PokemonsPage";
 
 function App() {
   return (<>
     <Header/>
-    <PokemonList/>
+    <PokemonsPage/>
     </>);
 }
 
