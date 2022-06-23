@@ -7,9 +7,12 @@ const LOCAL_STORAGE_KEY = 'todoAp.todos'
 
 
 function App() {
-  // js can return only 1 html element
-  const [todos, setTodos] = useState([])
-  const todoNameRef = useRef()
+  // useState returns 2 elements: current_state and func setState. Inside useState our default value.
+  const [todos, setTodos] = useState([]) // it will rerender each time on change, pass lambda to avoid it.
+  // Usage: setTodos( PREVIOUT_STATE => { return NEW_VALUE }) OR setTodos(NEW_VALUE)
+
+  const todoNameRef = useRef()  // used in: <input ref={todoNameRef} type="text" />
+  
 
   useEffect(() => {
     const storedTodos = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY))
@@ -43,12 +46,13 @@ function App() {
   }
 
   return (
+    // js can return only 1 html element, so use <> ... </> to pass many
     <>
-    <TodoList todos={todos} toggleTodo={toggleTodo}/>
-    <input ref={todoNameRef} type="text" />
-    <button onClick={handleAddTodo}>Add Todo</button>    
-    <button onClick={handleClearTodos}>Clear Complete</button>    
-    <div>{todos.filter(todo => !todo.complete).length} left to do</div>
+      <TodoList todos={todos} toggleTodo={toggleTodo}/>
+      <input ref={todoNameRef} type="text" />
+      <button onClick={handleAddTodo}>Add Todo</button>    
+      <button onClick={handleClearTodos}>Clear Complete</button>    
+      <div>{todos.filter(todo => !todo.complete).length} left to do</div>
     </>
   );
 }
