@@ -3,7 +3,7 @@ import { Card, Placeholder, ListGroup, ListGroupItem } from "react-bootstrap";
 
 
 export default function PokemonListItem({name, url}) {
-    const [iconPictureUrl, setIconPictureUrl] = useState('https://raw.githubusercontent.com/PokeAPI/media/master/logo/pokeapi_256.png')
+    const [iconPictureUrl, setIconPictureUrl] = useState()
     const [data, setData] = useState({})
     const [loading, setLoading] = useState(true)
 
@@ -26,9 +26,10 @@ export default function PokemonListItem({name, url}) {
     }, [url])
 
     if (loading) return (<>
-        <Card style={{ width: '18rem' }}>
+        <Card style={{ width: '18rem', alignItems: 'center'}}>
             {/* <Card.Img variant="top" src={iconPictureUrl} /> */}
             <Card.Body>
+                <Card.Img variant="top" src={null} style={{ width: '200px', height: '200px', marginTop: '10px'}}/>
                 <Placeholder as={Card.Title} animation="glow">
                     <Placeholder xs={6} />
                 </Placeholder>
