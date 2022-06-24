@@ -6,7 +6,6 @@ export function formatUrl(params, pageNum) {
 }
 
 export function findStat(statsList, name) {
-    console.log(statsList)
     return statsList.find(params => params.stat.name == name)
 }
 
