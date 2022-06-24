@@ -6,7 +6,7 @@ export function formatUrl(params, pageNum) {
 }
 
 export function findStat(statsList, name) {
-    return statsList.find(params => params.stat.name == name)
+    return statsList.find(params => params.stat.name === name)
 }
 
 export function SVG(name, width, height, fill) {
