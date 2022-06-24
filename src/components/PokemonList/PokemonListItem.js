@@ -17,6 +17,8 @@ export default function PokemonListItem({name, url}) {
         .then(response => response.json())
         .then(res => {
             let pictureUrl = res.sprites.other.dream_world.front_default
+            if (pictureUrl === null) pictureUrl = res.sprites.front_default
+            
             setIconPictureUrl(pictureUrl)
             setData(res)
             setLoading(false)

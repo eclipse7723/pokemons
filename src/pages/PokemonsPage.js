@@ -8,7 +8,7 @@ export default function PokemonsPage() {
 
     // pagination
     const [paginationParams, setPaginationParams] = useState({
-        itemsPerPage: 20, curPageNumber: 1, baseUrl: 'https://pokeapi.co/api/v2/pokemon'
+        itemsPerPage: 10, curPageNumber: 1, baseUrl: 'https://pokeapi.co/api/v2/pokemon'
     })
     const [curPageUrl, setCurPageUrl] = useState(formatUrl(paginationParams))
     const [maxPageNumber, setMaxPageNumber] = useState()
