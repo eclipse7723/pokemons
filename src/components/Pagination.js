@@ -1,5 +1,4 @@
 import { Pagination as BPagination } from 'react-bootstrap'
-import {useState} from 'react'
 
 
 export default function Pagination({setCurPageUrl, params, maxPageNumber, formatUrl}) {

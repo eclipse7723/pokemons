@@ -4,3 +4,12 @@ export function formatUrl(params, pageNum) {
     let url = `${params.baseUrl}?offset=${offset}&limit=${params.itemsPerPage}`
     return url
 }
+
+export function findStat(statsList, name) {
+    console.log(statsList)
+    return statsList.find(params => params.stat.name == name)
+}
+
+export function SVG(name, width, height, fill) {
+    return (<img src={`/svg/${name}.svg`} width={width} height={height} fill={fill}/>);
+}
