@@ -1,11 +1,12 @@
 import React from "react";
-import SignUp from "../Auth/SignUp";
+import SignUp from "../components/Auth/SignUp";
 import { Container } from "react-bootstrap";
+import { AuthProvider } from "../contexts/AuthContext";
 
 
 export default function AuthPage() {
     return (<><React.StrictMode>
-
+        <AuthProvider>
         <Container
             className="d-flex align-items-center justify-content-center"
             style={{minHeight: "100vh"}}>
@@ -13,6 +14,7 @@ export default function AuthPage() {
                 <SignUp/>
             </div>
         </Container>
+        </AuthProvider>
 
     </React.StrictMode></>)
 
