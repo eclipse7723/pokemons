@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from "react";
-import { Card, Placeholder, ListGroup, ListGroupItem, Row, Col } from "react-bootstrap";
+import { Card, Placeholder, ListGroup, ListGroupItem } from "react-bootstrap";
 import { SVG, findStat } from "../../utils";
 
 
