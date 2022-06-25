@@ -16,7 +16,7 @@ export default function Header() {
             <div className="collapse navbar-collapse" id="navbarNav">
             <ul className="navbar-nav">
                 <li className="nav-item">
-                <a className="nav-link active" aria-current="page" href="#">Link1</a>
+                <a className="nav-link" href="/auth">Auth</a>
                 </li>
                 <li className="nav-item">
                 <a className="nav-link" href="#">Link2</a>
