@@ -4,6 +4,7 @@ import { Tab, Tabs } from 'react-bootstrap'
 import { useAuth } from '../contexts/AuthContext'
 import { Navigate, useNavigate } from "react-router-dom";
 import ProfileDetails from '../components/Profile/ProfileDetails';
+import FavouritePokemons from '../components/Profile/FavouritePokemons';
 
 
 export default function MyProfilePage() {
@@ -45,14 +46,8 @@ export default function MyProfilePage() {
                 <ProfileDetails/>
             </Tab>
             
-            <Tab eventKey="profile2" title="Profile2">
-                <ListGroup variant="flush">
-                    
-                    <ListGroup.Item>
-                        asdasd
-                    </ListGroup.Item>
-
-                </ListGroup>
+            <Tab eventKey="favourites" title="Favourite pokemons">
+                <FavouritePokemons/>
             </Tab>
 
         </Tabs>
