@@ -1,20 +1,26 @@
 import Header from "./components/Header";
+import {BrowserRouter as Router, Routes, Route} from "react-router-dom"
 import PokemonsPage from "./pages/PokemonsPage";
 import AuthPage from "./pages/AuthPage";
-import {BrowserRouter as Router, Routes, Route} from "react-router-dom"
 import NotFoundPage from "./pages/NotFoundPage";
+import MyProfilePage from "./pages/MyProfilePage";
+import { AuthProvider } from "./contexts/AuthContext";
 
 function App() {
   return (<>
     <Header/>
     
+    <AuthProvider>
     <Router>
       <Routes>
         <Route path="/" element={<PokemonsPage/>} />
-        <Route path="/auth/*" element={<AuthPage/>} />
+          <Route path="/auth/*" element={<AuthPage/>} />
+          <Route path="/profile" element={<MyProfilePage/>} />
+        
         <Route path="*" element={<NotFoundPage/>} />
       </Routes>
     </Router>
+    </AuthProvider>
 
     </>);
 }
