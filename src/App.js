@@ -8,9 +8,10 @@ import { AuthProvider } from "./contexts/AuthContext";
 
 function App() {
   return (<>
-    <Header/>
     
     <AuthProvider>
+    <Header/>
+    
     <Router>
       <Routes>
         <Route index element={<PokemonsPage/>} />

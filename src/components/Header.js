@@ -1,37 +1,40 @@
 import React from "react";
+import { Container, Navbar } from "react-bootstrap";
+import { useAuth } from "../contexts/AuthContext";
 
 
 export default function Header() {
+    const { currentUser } = useAuth()
+
+    function setLoginInfo() {
+        let style = {textDecoration: "none"}
+        if (currentUser) {
+            return <a href="/profile" style={style}><i className="bi bi-person"></i> {currentUser.email}</a>
+        } else {
+            return <a href="/auth/login" style={style}><i className="bi bi-box-arrow-in-right"></i> Log In</a>
+        }
+    }
 
     return (<>
+    
+    <Navbar bg="light" expand="sm" className="mb-4">
+    <Container>
 
-        <nav className="navbar navbar-expand-sm bg-light mb-4">
-        <div className="container-fluid">
-            <a className="navbar-brand" href="/">Pokemons</a>
-            
-            <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span className="navbar-toggler-icon"></span>
-            </button>
+        <Navbar.Brand href="/">Pokemons</Navbar.Brand>
 
-            <div className="collapse navbar-collapse" id="navbarNav">
-            <ul className="navbar-nav">
-                <li className="nav-item">
-                <a className="nav-link" href="/auth">Auth</a>
-                </li>
-                <li className="nav-item">
-                <a className="nav-link" href="#">Link2</a>
-                </li>
-                <li className="nav-item">
-                <a className="nav-link" href="#">Link3</a>
-                </li>
-                <li className="nav-item">
-                <a className="nav-link disabled">Disabled Link</a>
-                </li>
-            </ul>
-            </div>
-        </div>
-        </nav>
+        <Navbar.Toggle />
 
-    </>);
+        <Navbar.Collapse className="justify-content-end">
+          
+            <Navbar.Text>
+                {setLoginInfo()}
+            </Navbar.Text>
+          
+        </Navbar.Collapse>
 
+
+    </Container>
+    </Navbar>
+    
+    </>)
 }
