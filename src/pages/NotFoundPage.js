@@ -1,5 +1,5 @@
 import React from "react";
-import { Alert, Button, Container } from "react-bootstrap";
+import { Container } from "react-bootstrap";
 import { SVG } from "../utils";
 
 
