@@ -1,5 +1,7 @@
 import React from "react";
 import SignUp from "../components/Auth/SignUp";
+import Login from "../components/Auth/Login";
+import NotFoundPage from "./NotFoundPage";
 import { Container } from "react-bootstrap";
 import { AuthProvider } from "../contexts/AuthContext";
 
@@ -13,9 +15,10 @@ export default function AuthPage() {
             style={{minHeight: "100vh"}}>
             <div className="w-100" style={{maxWidth: "400px"}}>
                 <Routes>
-                    <Route path="/" element={<SignUp/>} />
+                    <Route path="/" element={<Login/>} />
                     <Route path="/register" element={<SignUp/>} />
-                    <Route path="/login" element={<p>LOGIN PAGE</p>} />
+                    <Route path="/login" element={<Login/>} />
+                    <Route path="*" element={<NotFoundPage/>} />
                 </Routes>
             </div>
         </Container>
