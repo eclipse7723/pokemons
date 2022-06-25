@@ -24,7 +24,6 @@ export default function SignUp() {
         try {
             setError('')
             setLoading(true)
-            console.log(emailRef.current.value, passwordRef.current.value)
             await signUp(emailRef.current.value, passwordRef.current.value)
             navigate("/profile")
         } catch (error) {

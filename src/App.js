@@ -14,9 +14,8 @@ function App() {
     <Router>
       <Routes>
         <Route index element={<PokemonsPage/>} />
-          <Route path="/auth/*" element={<AuthPage/>} />
-          <Route path="/profile" element={<MyProfilePage/>} />
-        
+        <Route path="/auth/*" element={<AuthPage/>} />
+        <Route path="/profile" element={<MyProfilePage/>} />
         <Route path="*" element={<NotFoundPage/>} />
       </Routes>
     </Router>

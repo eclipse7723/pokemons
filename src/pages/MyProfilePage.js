@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { Container, Alert, Button, ListGroup } from 'react-bootstrap'
 import { Tab, Tabs } from 'react-bootstrap'
 import { useAuth } from '../contexts/AuthContext'

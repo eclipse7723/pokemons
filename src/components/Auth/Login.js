@@ -19,7 +19,6 @@ export default function Login() {
         try {
             setError('')
             setLoading(true)
-            console.log(emailRef.current.value, passwordRef.current.value)
             await login(emailRef.current.value, passwordRef.current.value)
             navigate("/profile")
         } catch (error) {
@@ -49,11 +48,15 @@ export default function Login() {
                             ref={passwordRef} required />
                     </Form.Group>
 
-                    <Button
-                        className="w-100" type="submit"
+                    <Button type="submit"
+                        className="w-100 mb-2" 
                         disabled={loading}>
                         Log in
                     </Button>
+                    
+                    <div className="w-100 text-center">
+                        <Link to="/auth/forgot-password">Forgot password</Link>
+                    </div>
 
                 </Form>
             </Card.Body>
