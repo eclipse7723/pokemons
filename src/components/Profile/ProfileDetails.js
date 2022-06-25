@@ -20,6 +20,8 @@ export default function ProfileDetails() {
 
         const promises = []
         
+        setLoading(true)
+
         if (passwordRef.current.value) {
             if (passwordRef.current.value === passwordConfirmRef.current.value) {
                 promises.push(updatePassword(passwordRef.current.value))
@@ -29,10 +31,16 @@ export default function ProfileDetails() {
             }
         }
 
-        setLoading(true)
-
         if (emailRef.current.value !== currentUser.email) {
             promises.push(updateEmail(emailRef.current.value))
+        }
+
+        if (promises.length === 0) {
+            setError("")
+            setMessage("")
+            setLoading(false)
+            setEdit(false)
+            return;
         }
 
         Promise.all(promises)
