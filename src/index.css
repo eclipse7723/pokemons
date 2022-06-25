@@ -1,3 +1,13 @@
 .stat-param img {
     vertical-align: sub;
 }
+
+.not-found {
+    font-size: 18vw;
+    text-align: center;
+}
+.not-found img {
+    width: 18vw;
+    height: 18vw;
+    margin: 0 2.5vw;
+}
