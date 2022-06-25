@@ -1,6 +1,6 @@
 import React, {useRef, useState} from "react";
 import { Card, Form, Button, Alert } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../../contexts/AuthContext";
 
 
@@ -12,6 +12,7 @@ export default function SignUp() {
     const {signUp} = useAuth()
     const [error, setError] = useState('')
     const [loading, setLoading] = useState(false)
+    const navigate = useNavigate()
 
     async function handleSubmit(e) {
         e.preventDefault()
@@ -25,9 +26,8 @@ export default function SignUp() {
             setLoading(true)
             console.log(emailRef.current.value, passwordRef.current.value)
             await signUp(emailRef.current.value, passwordRef.current.value)
-
+            navigate("/profile")
         } catch (error) {
-            console.log()
             setError(error.message)
         }
         setLoading(false)
