@@ -13,7 +13,7 @@ function App() {
     <AuthProvider>
     <Router>
       <Routes>
-        <Route path="/" element={<PokemonsPage/>} />
+        <Route index element={<PokemonsPage/>} />
           <Route path="/auth/*" element={<AuthPage/>} />
           <Route path="/profile" element={<MyProfilePage/>} />
         

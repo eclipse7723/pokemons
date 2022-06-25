@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { Container, Alert, Button, ListGroup } from 'react-bootstrap'
 import { Tab, Tabs } from 'react-bootstrap'
 import { useAuth } from '../contexts/AuthContext'
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import ProfileDetails from '../components/Profile/ProfileDetails';
 
 
@@ -12,9 +12,7 @@ export default function MyProfilePage() {
     const [error, setError] = useState('')
     const navigate = useNavigate()
 
-    useEffect(() => {
-        if (!currentUser) navigate("/auth/login")
-    }); if (!currentUser) return;
+    if (!currentUser) return <Navigate replate to="/auth/login" />;
     
     async function handleLogout() {
         setError('')
