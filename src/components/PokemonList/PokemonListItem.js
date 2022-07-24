@@ -1,9 +1,7 @@
 import React, {useState, useEffect} from "react";
 import { Card, Placeholder, ListGroup, ListGroupItem } from "react-bootstrap";
 import { SVG, findStat } from "../../utils";
-
-
-let ICON_PARAMS = { width: '215px', height: '215px', marginTop: '10px'}
+import FavouriteButton from "../FavouriteButton";
 
 
 export default function PokemonListItem({name, url}) {
@@ -16,7 +14,7 @@ export default function PokemonListItem({name, url}) {
         statsListNames.map(name => stats[name] = findStat(statsList, name))
         setStats(stats)
     }
-    
+
     const [loading, setLoading] = useState(true)
     const controller = new AbortController()
     const signal = controller.signal
@@ -43,10 +41,10 @@ export default function PokemonListItem({name, url}) {
     }
 
     if (loading) return (<>
-        <Card style={{ width: '18rem', alignItems: 'center'}}>
-            {/* <Card.Img variant="top" src={iconPictureUrl} /> */}
+        <Card>
+            <FavouriteButton name={name}/>
             <Card.Body>
-                <Card.Img variant="top" src={null} style={ICON_PARAMS}/>
+                <Card.Img variant="top" src={null} className="pokemon-icon"/>
                 <Placeholder as={Card.Title} animation="glow">
                     <Placeholder xs={6} />
                 </Placeholder>
@@ -60,9 +58,9 @@ export default function PokemonListItem({name, url}) {
     </>)
 
     return (
-
-        <Card style={{ width: '18rem', alignItems: 'center'}}>
-            <Card.Img variant="top" src={iconPictureUrl} style={ICON_PARAMS}/>
+        <Card>
+            <FavouriteButton name={name}/>
+            <Card.Img variant="top" src={iconPictureUrl} className="pokemon-icon"/>
             <Card.Body>
                 <Card.Title>{name}</Card.Title>
 
@@ -76,8 +74,6 @@ export default function PokemonListItem({name, url}) {
                     
                     <ListGroupItem>Number of abilities: {data.abilities.length}</ListGroupItem>
                 </ListGroup>
-
-                {/* <Button variant="primary">Go somewhere</Button> */}
             </Card.Body>
         </Card>
 

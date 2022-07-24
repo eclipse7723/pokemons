@@ -9,6 +9,6 @@ export function findStat(statsList, name) {
     return statsList.find(params => params.stat.name === name)
 }
 
-export function SVG(name, width, height, fill) {
-    return (<img src={`/svg/${name}.svg`} width={width} height={height} fill={fill}/>);
+export function SVG(name, width, height, className) {
+    return (<img src={`/svg/${name}.svg`} width={width} height={height} className={className}/>);
 }
