@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
-import {auth} from "../services/firebase"
+import { auth } from "../services/firebase"
+import { getUserData } from "../services/firestore";
 import LoadingSpinner from "../components/LoadingSpinner"
 
 
@@ -11,7 +12,8 @@ export function useAuth() {
 
 export function AuthProvider({ children }) {
 
-    const [currentUser, setCurrentUser] = useState()
+    const [currentUser, setCurrentUser] = useState(null)
+    const [loginUserData, setLoginUserData] = useState(null)
     const [loading, setLoading] = useState(true)
 
     function signUp(email, password) {
@@ -40,8 +42,13 @@ export function AuthProvider({ children }) {
 
     useEffect(() => {
         const unSubscribe = auth.onAuthStateChanged(user => {
-            setCurrentUser(user)
-            setLoading(false)
+            function cb(data){
+                setCurrentUser(user)
+                setLoginUserData(data)
+                setLoading(false)
+            }
+            if (user) getUserData(user.uid, cb)
+            else setLoading(false)
         })  // remove observer
 
         return unSubscribe
@@ -49,6 +56,7 @@ export function AuthProvider({ children }) {
 
     const value = {
         currentUser,
+        loginUserData,
         login,
         signUp,
         logout,
