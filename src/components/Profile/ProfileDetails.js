@@ -4,7 +4,7 @@ import { Form, Alert, Button, Container } from 'react-bootstrap'
 
 
 export default function ProfileDetails() {
-    const {currentUser, updatePassword, updateEmail} = useAuth()
+    const {currentUser, loginUserData, updatePassword, updateEmail} = useAuth()
     
     const [edit, setEdit] = useState(false)
     const [loading, setLoading] = useState(false)
@@ -78,7 +78,14 @@ export default function ProfileDetails() {
     {error && <Alert variant="danger" onClose={() => setError('')} dismissible>{error}</Alert>}
     {message && <Alert variant="success" onClose={() => setMessage('')} dismissible>{message}</Alert>}
     
-    <Form onSubmit={handleSubmit}>
+    <Form onSubmit={handleSubmit} className="profile-details">
+        
+        <Form.Group id="nickname" className="mb-4">
+            <Form.Label><strong>Nickname</strong></Form.Label>
+            <Form.Control type="text"
+                    defaultValue={loginUserData.nickname}
+                plaintext={true} readOnly={true}/>
+        </Form.Group>
         
         <Form.Group id="email" className="mb-4">
             <Form.Label><strong>Email</strong></Form.Label>

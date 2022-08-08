@@ -4,14 +4,14 @@ import { useAuth } from "../contexts/AuthContext";
 
 
 export default function Header() {
-    const { currentUser } = useAuth()
+    const { currentUser, loginUserData } = useAuth()
 
     function setLoginInfo() {
-        let style = {textDecoration: "none"}
         if (currentUser) {
-            return <a href="/profile" style={style}><i className="bi bi-person"></i> {currentUser.email}</a>
+            return <a href="/profile"><i className="bi bi-person"></i>
+                {loginUserData && loginUserData.nickname || currentUser.email}</a>
         } else {
-            return <a href="/auth/login" style={style}><i className="bi bi-box-arrow-in-right"></i> Log In</a>
+            return <a href="/auth/login" ><i className="bi bi-box-arrow-in-right"></i>Log In</a>
         }
     }
 
@@ -26,7 +26,7 @@ export default function Header() {
 
         <Navbar.Collapse className="justify-content-end">
           
-            <Navbar.Text>
+            <Navbar.Text className="nav-display-name">
                 {setLoginInfo()}
             </Navbar.Text>
           
