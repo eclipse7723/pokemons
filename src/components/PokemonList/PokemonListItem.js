@@ -2,11 +2,16 @@ import React, {useState, useEffect} from "react";
 import { Card, Placeholder, ListGroup, ListGroupItem } from "react-bootstrap";
 import { SVG, findStat } from "../../utils";
 import FavouriteButton from "../FavouriteButton";
+import {useAuth} from "../../contexts/AuthContext"
 
 
-export default function PokemonListItem({name, url}) {
+
+export default function PokemonListItem({url}) {
+    const { loginUserData } = useAuth()
+    
     const [iconPictureUrl, setIconPictureUrl] = useState()
     const [data, setData] = useState({})
+    const [id, setId] = useState()
     const [stats, setStats] = useState({})
 
     function fillStats(statsList) {
@@ -29,6 +34,7 @@ export default function PokemonListItem({name, url}) {
             
             setIconPictureUrl(pictureUrl)
             setData(res)
+            setId(res.id)
             fillStats(res.stats)
             setLoading(false)
         })
@@ -42,7 +48,7 @@ export default function PokemonListItem({name, url}) {
 
     if (loading) return (<>
         <Card>
-            <FavouriteButton name={name}/>
+            <FavouriteButton/>
             <Card.Body>
                 <Card.Img variant="top" src={null} className="pokemon-icon"/>
                 <Placeholder as={Card.Title} animation="glow">
@@ -52,17 +58,21 @@ export default function PokemonListItem({name, url}) {
                     <Placeholder xs={7} /> <Placeholder xs={4} /> <Placeholder xs={4} />{' '}
                     <Placeholder xs={6} /> <Placeholder xs={8} />
                 </Placeholder>
-                {/* <Placeholder.Button variant="primary" xs={6} /> */}
             </Card.Body>
         </Card>
     </>)
 
+    function isFavourite() {
+        if (!loginUserData) return false;
+        return loginUserData.favourite_pokemons.includes(data.id);
+    }
+
     return (
         <Card>
-            <FavouriteButton name={name}/>
+            <FavouriteButton id={id} defaultValue={isFavourite()} />
             <Card.Img variant="top" src={iconPictureUrl} className="pokemon-icon"/>
             <Card.Body>
-                <Card.Title>{name}</Card.Title>
+                <Card.Title>{data.name}</Card.Title>
 
                 <ListGroup className="d-flex justify-content-around flex-row">
                         {stats.hp && <div className="stat-param">{svg("health")} <span>{stats.hp.base_stat}</span></div>}

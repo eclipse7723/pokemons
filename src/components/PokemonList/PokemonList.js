@@ -38,7 +38,7 @@ export default function PokemonList({curPageUrl, paginationParams, setMaxPageNum
     return (<>
       <Row className="g-4 justify-content-around pokemon-list" style={{marginRight: 0}}>
           { pokemons.map(p => 
-            <PokemonListItem key={p.name} name={p.name} url={p.url}/>) }
+            <PokemonListItem key={p.name} url={p.url}/>) }
       </Row>
     </>)
 }
