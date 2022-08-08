@@ -1,6 +1,6 @@
 import React, {useRef, useState} from "react";
 import { Card, Form, Button, Alert } from "react-bootstrap";
-import { Link, useNavigate } from "react-router-dom";
+import { Navigate, Link } from "react-router-dom";
 import { useAuth } from "../../contexts/AuthContext";
 
 
@@ -8,10 +8,11 @@ export default function Login() {
 
     const emailRef = useRef()
     const passwordRef = useRef()
-    const {login} = useAuth()
+    const {currentUser, login} = useAuth()
     const [error, setError] = useState('')
     const [loading, setLoading] = useState(false)
-    const navigate = useNavigate()
+    
+    if (currentUser) return <Navigate replate to="/profile" />;
 
     async function handleSubmit(e) {
         e.preventDefault()
@@ -20,7 +21,6 @@ export default function Login() {
             setError('')
             setLoading(true)
             await login(emailRef.current.value, passwordRef.current.value)
-            navigate("/profile")
         } catch (error) {
             setError(error.message)
         }
@@ -36,13 +36,13 @@ export default function Login() {
                 <Form onSubmit={handleSubmit}>
                     {error && <Alert variant="danger">{error}</Alert>}
                     
-                    <Form.Group id="email" className="mb-4" autocomplete="email">
+                    <Form.Group id="email" className="mb-4" autoComplete="email">
                         <Form.Label>Email</Form.Label>
                         <Form.Control type="email"
                             ref={emailRef} required />
                     </Form.Group>
 
-                    <Form.Group id="password" className="mb-4" autocomplete="current-password">
+                    <Form.Group id="password" className="mb-4" autoComplete="current-password">
                         <Form.Label>Password</Form.Label>
                         <Form.Control type="password"
                             ref={passwordRef} required />

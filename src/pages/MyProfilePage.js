@@ -16,16 +16,13 @@ export default function MyProfilePage() {
     if (!currentUser) return <Navigate replate to="/auth/login" />;
     
     async function handleLogout() {
-        setError('')
 
         try {
+            setError('')
             await logout()
-            navigate("/auth/login")
         } catch (error) {
             setError(error.message)
         }
-        
-        setError('')
     }
 
     return (<>

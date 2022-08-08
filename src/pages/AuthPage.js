@@ -53,7 +53,7 @@ export default function AuthPage() {
         <Routes>
             <Route path="/" element={switchPage(<Login/>)} />
             <Route path="/register" element={switchPage(<SignUp/>)} />
-            <Route path="/login" element={switchPage(<Login/>)} />
+            <Route path="/login" element={wrap(<Login/>)} />
             <Route path="/forgot-password" element={switchPage(<ForgotPassword/>)} />
             <Route path="*" element={<NotFoundPage/>} />
         </Routes>

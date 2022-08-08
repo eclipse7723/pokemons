@@ -25,6 +25,8 @@ export function AuthProvider({ children }) {
     }
 
     function logout() {
+        setCurrentUser(null);
+        setLoginUserData(null);
         return auth.signOut()
     }
     
