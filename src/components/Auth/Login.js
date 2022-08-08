@@ -36,13 +36,13 @@ export default function Login() {
                 <Form onSubmit={handleSubmit}>
                     {error && <Alert variant="danger">{error}</Alert>}
                     
-                    <Form.Group id="email" className="mb-4">
+                    <Form.Group id="email" className="mb-4" autocomplete="email">
                         <Form.Label>Email</Form.Label>
                         <Form.Control type="email"
                             ref={emailRef} required />
                     </Form.Group>
 
-                    <Form.Group id="password" className="mb-4">
+                    <Form.Group id="password" className="mb-4" autocomplete="current-password">
                         <Form.Label>Password</Form.Label>
                         <Form.Control type="password"
                             ref={passwordRef} required />

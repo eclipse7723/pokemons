@@ -41,19 +41,19 @@ export default function SignUp() {
                 <Form onSubmit={handleSubmit}>
                     {error && <Alert variant="danger">{error}</Alert>}
                     
-                    <Form.Group id="email" className="mb-4">
+                    <Form.Group id="email" className="mb-4" autocomplete="email">
                         <Form.Label>Email</Form.Label>
                         <Form.Control type="email"
                             ref={emailRef} required />
                     </Form.Group>
 
-                    <Form.Group id="password" className="mb-4">
+                    <Form.Group id="password" className="mb-4" autocomplete="new-password">
                         <Form.Label>Password</Form.Label>
                         <Form.Control type="password"
                             ref={passwordRef} required />
                     </Form.Group>
 
-                    <Form.Group id="password-confirm" className="mb-4">
+                    <Form.Group id="password-confirm" className="mb-4" autocomplete="new-password">
                         <Form.Label>Confirm password</Form.Label>
                         <Form.Control type="password"
                             ref={passwordConfirmRef} required />
