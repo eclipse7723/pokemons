@@ -33,3 +33,18 @@
 .pokemon-list .stat-param img {
     vertical-align: sub;
 }
+
+/* Profile Details */
+
+.profile-details input {
+    padding: .375rem .75rem;
+}
+
+/* Header */
+
+.nav-display-name a {
+    text-decoration: none;
+}
+.nav-display-name i {
+    margin-right: 5px;
+}
