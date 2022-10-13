@@ -83,7 +83,7 @@ export default function ProfileDetails() {
         <Form.Group id="nickname" className="mb-4">
             <Form.Label><strong>Nickname</strong></Form.Label>
             <Form.Control type="text"
-                    defaultValue={loginUserData.nickname}
+                defaultValue={(loginUserData && loginUserData.nickname) || "None"}
                 plaintext={true} readOnly={true}/>
         </Form.Group>
         

@@ -6,6 +6,10 @@ import PokemonSpecificList from '../PokemonList/PokemonsSpecificList'
 export default function FavouritePokemons() {
   const {loginUserData} = useAuth()
 
+  if (!loginUserData) {
+    return <p>Error - contact administrator</p>
+  }
+
   return (
       <>
       
