@@ -48,3 +48,24 @@
 .nav-display-name i {
     margin-right: 5px;
 }
+
+/* Footer */
+
+div.footer {
+    display: flex;
+    width: 100%;
+    margin: 1vh 0 0 0;
+    padding: 0.5rem;
+    height: 5vh;
+}
+.footer-content {
+    display: flex;
+    justify-content: end;
+    align-items: center;
+}
+.footer-text {
+    color: rgba(0, 0, 0, 0.3);
+}
+.footer-uuid {
+    font-family: "Consolas"
+}
