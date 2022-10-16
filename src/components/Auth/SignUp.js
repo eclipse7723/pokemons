@@ -9,10 +9,12 @@ export default function SignUp() {
     const emailRef = useRef()
     const passwordRef = useRef()
     const passwordConfirmRef = useRef()
+
     const {signUp} = useAuth()
+    const navigate = useNavigate()
+
     const [error, setError] = useState('')
     const [loading, setLoading] = useState(false)
-    const navigate = useNavigate()
 
     async function handleSubmit(e) {
         e.preventDefault()
@@ -27,7 +29,11 @@ export default function SignUp() {
             await signUp(emailRef.current.value, passwordRef.current.value)
             navigate("/profile")
         } catch (error) {
-            setError(error.message)
+            let errorCode = error.code
+            if (errorCode === "auth/email-already-in-use") setError("This email is already in use")
+            else if (errorCode === "auth/invalid-email") setError("Your email is not valid")
+            else if (errorCode === "auth/weak-password") setError("Password is too weak")
+            else setError(error.message)
         }
         setLoading(false)
 
@@ -41,21 +47,21 @@ export default function SignUp() {
                 <Form onSubmit={handleSubmit}>
                     {error && <Alert variant="danger">{error}</Alert>}
                     
-                    <Form.Group id="email" className="mb-4" autoComplete="email">
+                    <Form.Group id="email" className="mb-4">
                         <Form.Label>Email</Form.Label>
-                        <Form.Control type="email"
+                        <Form.Control type="email" autoComplete="email"
                             ref={emailRef} required />
                     </Form.Group>
 
-                    <Form.Group id="password" className="mb-4" autoComplete="new-password">
+                    <Form.Group id="password" className="mb-4">
                         <Form.Label>Password</Form.Label>
-                        <Form.Control type="password"
+                        <Form.Control type="password" autoComplete="new-password"
                             ref={passwordRef} required />
                     </Form.Group>
 
-                    <Form.Group id="password-confirm" className="mb-4" autoComplete="new-password">
+                    <Form.Group id="password-confirm" className="mb-4">
                         <Form.Label>Confirm password</Form.Label>
-                        <Form.Control type="password"
+                        <Form.Control type="password" autoComplete="new-password"
                             ref={passwordConfirmRef} required />
                     </Form.Group>
 

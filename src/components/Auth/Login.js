@@ -22,7 +22,11 @@ export default function Login() {
             setLoading(true)
             await login(emailRef.current.value, passwordRef.current.value)
         } catch (error) {
-            setError(error.message)
+            let errorCode = error.code
+            if (["auth/user-not-found", "auth/wrong-password"].includes(errorCode)) {
+                setError("User with this email or password not found")
+            }
+            else setError(error.message)
         }
         setLoading(false)
 
@@ -36,15 +40,15 @@ export default function Login() {
                 <Form onSubmit={handleSubmit}>
                     {error && <Alert variant="danger">{error}</Alert>}
                     
-                    <Form.Group id="email" className="mb-4" autoComplete="email">
+                    <Form.Group id="email" className="mb-4">
                         <Form.Label>Email</Form.Label>
-                        <Form.Control type="email"
+                        <Form.Control type="email" autoComplete="email"
                             ref={emailRef} required />
                     </Form.Group>
 
-                    <Form.Group id="password" className="mb-4" autoComplete="current-password">
+                    <Form.Group id="password" className="mb-4">
                         <Form.Label>Password</Form.Label>
-                        <Form.Control type="password"
+                        <Form.Control type="password" autoComplete="current-password"
                             ref={passwordRef} required />
                     </Form.Group>
 
