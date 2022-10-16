@@ -9,7 +9,7 @@ export default function Header() {
     function setLoginInfo() {
         if (currentUser) {
             return <a href="/profile"><i className="bi bi-person"></i>
-                {(loginUserData && loginUserData.nickname) || currentUser.email}</a>
+                {loginUserData.nickname || currentUser.email}</a>
         } else {
             return <a href="/auth/login" ><i className="bi bi-box-arrow-in-right"></i>Log In</a>
         }
@@ -17,7 +17,7 @@ export default function Header() {
 
     return (<>
     
-    <Navbar bg="light" expand="sm" className="mb-4">
+    <Navbar bg="light" expand="sm" className="mb-4 nav-size">
     <Container>
 
         <Navbar.Brand href="/">Pokemons</Navbar.Brand>
