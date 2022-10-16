@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { auth } from "../services/firebase"
-import { getUserData } from "../services/firestore";
+import { getUserData, setUserParams } from "../services/firestore";
 import LoadingSpinner from "../components/LoadingSpinner"
 
 
@@ -16,8 +16,19 @@ export function AuthProvider({ children }) {
     const [loginUserData, setLoginUserData] = useState(null)
     const [loading, setLoading] = useState(true)
 
-    function signUp(email, password) {
+    function signUp(email, password,) {
         return auth.createUserWithEmailAndPassword(email, password)
+            .then((UserCredentials) => {
+                let uuid = UserCredentials.user.uid
+                let defaultParams = {
+                    favourite_pokemons: [],
+                    name: { first_name: "", last_name: "" },
+                    nickname: "",
+                    group: "user",
+                    uuid: uuid
+                }
+                setUserParams(uuid, defaultParams)
+            })
     }
 
     function login(email, password) {
@@ -42,6 +53,16 @@ export function AuthProvider({ children }) {
         return currentUser.updatePassword(newPassword)
     }
 
+    async function updateLoginUserData() {
+        if (!currentUser) return;
+
+        function cb(data){
+            setLoginUserData(data)
+        }
+
+        await getUserData(currentUser.uid, cb)
+    }
+
     useEffect(() => {
         const unSubscribe = auth.onAuthStateChanged(user => {
             function cb(data){
@@ -64,7 +85,8 @@ export function AuthProvider({ children }) {
         logout,
         resetPassword,
         updateEmail,
-        updatePassword
+        updatePassword,
+        updateLoginUserData
     }
 
     return (
